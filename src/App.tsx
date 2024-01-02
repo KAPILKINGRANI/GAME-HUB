@@ -13,13 +13,9 @@ function App() {
       </GridItem>
       {/*render aside component above large i.e on larger devices  using show(chakra UI*/}
       <Show above="lg">
-        <GridItem area="aside" bg="gold">
-          aside
-        </GridItem>
+        <GridItem area="aside">aside</GridItem>
       </Show>
-      <GridItem area="main" bg="dodgerblue">
-        main
-      </GridItem>
+      <GridItem area="main">main</GridItem>
     </Grid>
   );
 }
