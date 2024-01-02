@@ -2,10 +2,20 @@ import { useState,useEffect } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 //the interface defined is based on API Docs
+export interface Platform {
+    id:number;
+    name:string;
+    slug:string;
+}
 export interface Game {
     id: number;
     name: string;
     background_image:string;
+    //this ugly syntax is because of API Design 
+    //they haven't organize the data
+    //now parent platform is an array of objects
+    //with property platform of type Platform
+    parent_platforms:{platform : Platform}[];
   }
   interface FetchGamesResponse {
     count: number;
