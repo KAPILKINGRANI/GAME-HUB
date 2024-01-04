@@ -5,11 +5,11 @@ import GameCardSkeleton from "./GameCardSkeleton";
 
 const GameGrid = () => {
   const { games, error, isLoading } = useGames();
-  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const skeletons = [1, 2, 3, 4, 5, 6];
   return (
     <>
       {error && <Text>{error}</Text>}
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={10} padding={10}>
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={5} padding={10}>
         {isLoading &&
           skeletons.map((skeleton) => <GameCardSkeleton key={skeleton} />)}
         {games.map((game) => (
