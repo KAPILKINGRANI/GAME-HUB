@@ -38,7 +38,11 @@ const PlatformIconList = ({ platforms }: Props) => {
       {/* here if we speicfy the number that number will be a multiple of default margin(theme of chakraui)  */}
       <HStack margin={1}>
         {platforms.map((platform) => (
-          <Icon as={iconMap[platform.slug]} color="gray.500" />
+          <Icon
+            key={platform.id}
+            as={iconMap[platform.slug]}
+            color="gray.500"
+          />
         ))}
       </HStack>
     </>

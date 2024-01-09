@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
+import { Genre } from "./useGenres";
 //the interface defined is based on API Docs
 export interface Platform {
     id:number;
@@ -25,17 +26,17 @@ export interface Game {
   //v Imp Thing in games useState is of type Game[]
   //and in apiclient.get if u dont mention <FetchGamesResponse> u won't get auto complete suggestions
   
-const useGames = () => {
+const useGames = (selectedGenre:Genre | null) => {
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState([]);
     const [isLoading,setLoading] = useState(false);
     useEffect(() => {
-
         //for cancelling the request we are using controller
         const controller = new AbortController();
         setLoading(true);
+        //params is a property of axios request object
       apiClient
-        .get<FetchGamesResponse>("/games",{signal:controller.signal})
+        .get<FetchGamesResponse>("/games",{params :{genres : selectedGenre?.id}})
         .then((res) => {
           setGames(res.data.results)
           setLoading(false);
@@ -48,7 +49,8 @@ const useGames = () => {
 
         //cleanup function
         return () => controller.abort();
-    },[]);
+        //here we need to add the dependencies because useEffect should work whenever we select some genre
+    },[selectedGenre?.id]);
 
     //return object with 2 properties games and error
     return {games,error,isLoading};
