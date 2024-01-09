@@ -35,6 +35,7 @@ const useGames = (selectedGenre:Genre | null) => {
         const controller = new AbortController();
         setLoading(true);
         //params is a property of axios request object
+        //genres is a property as per api docs 
       apiClient
         .get<FetchGamesResponse>("/games",{params :{genres : selectedGenre?.id}})
         .then((res) => {

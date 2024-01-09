@@ -14,8 +14,10 @@ import {
 
 interface Props {
   onSelectedGenre: (genre: Genre) => void;
+  //for highlighting the selected Genre
+  selectedGenre: Genre | null;
 }
-const GenreList = ({ onSelectedGenre }: Props) => {
+const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
   const { genres, isLoading, error } = useGenres();
 
   // if (error) return null;
@@ -26,14 +28,19 @@ const GenreList = ({ onSelectedGenre }: Props) => {
         <ListItem key={genre.id} paddingY="5px">
           <HStack>
             <Image
-              boxSize="32px"
+              boxSize="40px"
               borderRadius={8}
               src={genre.image_background}
             />
             <Button
+              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+              textDecoration={
+                genre.id == selectedGenre?.id ? "underline" : "none"
+              }
               onClick={() => onSelectedGenre(genre)}
               fontSize="lg"
               variant="link"
+              padding="5px"
             >
               {genre.name}
             </Button>

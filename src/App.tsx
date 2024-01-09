@@ -20,7 +20,7 @@ function App() {
       //here fr stands for fraction on larger devices aside panel will take 200px
       templateColumns={{
         base: "1fr",
-        lg: "200px 1fr",
+        lg: "300px 1fr",
       }}
     >
       <GridItem area="nav">
@@ -28,8 +28,11 @@ function App() {
       </GridItem>
       {/*render aside component above large i.e on larger devices  using show(chakra UI*/}
       <Show above="lg">
-        <GridItem area="aside" paddingX={5}>
-          <GenreList onSelectedGenre={(genre) => setSelectedGenre(genre)} />
+        <GridItem area="aside" paddingX={10}>
+          <GenreList
+            selectedGenre={selectedGenre}
+            onSelectedGenre={(genre) => setSelectedGenre(genre)}
+          />
         </GridItem>
       </Show>
       <GridItem area="main">
