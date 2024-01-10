@@ -26,7 +26,7 @@ export interface Game {
   //v Imp Thing in games useState is of type Game[]
   //and in apiclient.get if u dont mention <FetchGamesResponse> u won't get auto complete suggestions
   
-const useGames = (selectedGenre:Genre | null) => {
+const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null) => {
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState([]);
     const [isLoading,setLoading] = useState(false);
@@ -37,7 +37,7 @@ const useGames = (selectedGenre:Genre | null) => {
         //params is a property of axios request object
         //genres is a property as per api docs 
       apiClient
-        .get<FetchGamesResponse>("/games",{params :{genres : selectedGenre?.id}})
+        .get<FetchGamesResponse>("/games",{params :{genres : selectedGenre?.id, platforms : selectedPlatform?.id}})
         .then((res) => {
           setGames(res.data.results)
           setLoading(false);
@@ -50,8 +50,8 @@ const useGames = (selectedGenre:Genre | null) => {
 
         //cleanup function
         return () => controller.abort();
-        //here we need to add the dependencies because useEffect should work whenever we select some genre
-    },[selectedGenre?.id]);
+        //here we need to add the dependencies because useEffect should work whenever we select some genre or platform
+    },[selectedGenre?.id,selectedPlatform?.id]);
 
     //return object with 2 properties games and error
     return {games,error,isLoading};
