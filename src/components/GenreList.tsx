@@ -10,6 +10,7 @@ import {
   Spinner,
   Text,
   list,
+  Heading,
 } from "@chakra-ui/react";
 
 interface Props {
@@ -22,31 +23,38 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
 
   if (isLoading) return <Spinner padding={10} />;
   return (
-    <List>
-      {genres.map((genre) => (
-        <ListItem key={genre.id} paddingY="5px">
-          <HStack>
-            <Image
-              boxSize="40px"
-              borderRadius={8}
-              src={genre.image_background}
-            />
-            <Button
-              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
-              textDecoration={
-                genre.id == selectedGenre?.id ? "underline" : "none"
-              }
-              onClick={() => onSelectedGenre(genre)}
-              fontSize="lg"
-              variant="link"
-              padding="5px"
-            >
-              {genre.name}
-            </Button>
-          </HStack>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <Heading fontSize="2xl" marginBottom={3}>
+        Genres
+      </Heading>
+      <List>
+        {genres.map((genre) => (
+          <ListItem key={genre.id} paddingY="5px">
+            <HStack>
+              <Image
+                objectFit="cover"
+                boxSize="40px"
+                borderRadius={8}
+                src={genre.image_background}
+              />
+              <Button
+                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+                textDecoration={
+                  genre.id == selectedGenre?.id ? "underline" : "none"
+                }
+                onClick={() => onSelectedGenre(genre)}
+                fontSize="lg"
+                variant="link"
+                whiteSpace="normal"
+                textAlign="left"
+              >
+                {genre.name}
+              </Button>
+            </HStack>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 
