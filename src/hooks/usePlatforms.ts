@@ -21,6 +21,7 @@ const usePlatforms = () => {
             .get<PlatformResponse>("platforms/lists/parents",{signal:controller.signal})
             .then((res) => {
               setPlatform(res.data.results)
+             
             })
             .catch((err) => {
             if(err instanceof CanceledError) return;
