@@ -3,11 +3,11 @@ import Navbar from "./components/Navbar";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
 import PlatformSelector from "./components/PlatformSelector";
-import SortSelector from "./components/SortSelector";
 import { useState } from "react";
 import { Genre } from "./hooks/useGenres";
-import { Platform } from "./hooks/useGames";
+import { Platform } from "./hooks/usePlatforms";
 import { HStack } from "@chakra-ui/react";
+import SortSelector from "./components/SortSelector";
 function App() {
   /*
   The selectedGenre variable of the useState can either hold genre or 
@@ -17,6 +17,7 @@ function App() {
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
     null
   );
+  const [selectedOrder, setSelectedOrder] = useState("updated");
   return (
     <Grid
       templateAreas={{
@@ -48,11 +49,15 @@ function App() {
             selectedPlatform={selectedPlatform}
             onSelectPlatform={(platform) => setSelectedPlatform(platform)}
           />
-          <SortSelector />
+          <SortSelector
+            selectedOrder={selectedOrder}
+            onSelectedOrder={(order) => setSelectedOrder(order)}
+          />
         </HStack>
         <GameGrid
           selectedPlatform={selectedPlatform}
           selectedGenre={selectedGenre}
+          selectedOrder={selectedOrder}
         />
       </GridItem>
     </Grid>

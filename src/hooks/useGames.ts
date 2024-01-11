@@ -2,12 +2,7 @@ import { useState,useEffect } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 import { Genre } from "./useGenres";
-//the interface defined is based on API Docs
-export interface Platform {
-    id:number;
-    name:string;
-    slug:string;
-}
+import { Platform } from "./usePlatforms";
 export interface Game {
     id: number;
     name: string;
@@ -18,6 +13,7 @@ export interface Game {
     //with property platform of type Platform
     parent_platforms:{platform : Platform}[];
     metacritic:number;
+    ordering:string;
   }
   interface FetchGamesResponse {
     count: number;
@@ -26,7 +22,7 @@ export interface Game {
   //v Imp Thing in games useState is of type Game[]
   //and in apiclient.get if u dont mention <FetchGamesResponse> u won't get auto complete suggestions
   
-const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null) => {
+const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null,selectedOrder:string) => {
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState([]);
     const [isLoading,setLoading] = useState(false);
@@ -37,7 +33,15 @@ const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null) 
         //params is a property of axios request object
         //genres is a property as per api docs 
       apiClient
-        .get<FetchGamesResponse>("/games",{params :{genres : selectedGenre?.id, platforms : selectedPlatform?.id}})
+        .get<FetchGamesResponse>("/games",
+         {
+            params : {
+              genres : selectedGenre?.id, 
+              platforms : selectedPlatform?.id,
+              ordering:selectedOrder
+           }
+         }
+      )
         .then((res) => {
           setGames(res.data.results)
           setLoading(false);
@@ -51,7 +55,7 @@ const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null) 
         //cleanup function
         return () => controller.abort();
         //here we need to add the dependencies because useEffect should work whenever we select some genre or platform
-    },[selectedGenre?.id,selectedPlatform?.id]);
+    },[selectedGenre?.id,selectedPlatform?.id,selectedOrder]);
 
     //return object with 2 properties games and error
     return {games,error,isLoading};
