@@ -8,9 +8,10 @@ interface Props {
   game: Game;
 }
 const GameCard = ({ game }: Props) => {
+  const noImageUrl = "./public/no-image-placeholder.webp";
   return (
     <Card borderRadius={10} overflow={"hidden"}>
-      <Image src={game.background_image} />
+      <Image src={game.background_image || noImageUrl} />
       <CardBody>
         <Heading fontSize="2xl">{game.name}</Heading>
         {/* It is Difficult see how we have pass the prop
