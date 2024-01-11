@@ -18,6 +18,7 @@ function App() {
     null
   );
   const [selectedOrder, setSelectedOrder] = useState("updated");
+  const [searchText, setSearchText] = useState("");
   return (
     <Grid
       templateAreas={{
@@ -32,7 +33,7 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <Navbar />
+        <Navbar onSearch={(searchText) => setSearchText(searchText)} />
       </GridItem>
       {/*render aside component above large i.e on larger devices  using show(chakra UI*/}
       <Show above="lg">
@@ -58,6 +59,7 @@ function App() {
           selectedPlatform={selectedPlatform}
           selectedGenre={selectedGenre}
           selectedOrder={selectedOrder}
+          searchText={searchText}
         />
       </GridItem>
     </Grid>

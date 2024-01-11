@@ -22,7 +22,7 @@ export interface Game {
   //v Imp Thing in games useState is of type Game[]
   //and in apiclient.get if u dont mention <FetchGamesResponse> u won't get auto complete suggestions
   
-const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null,selectedOrder:string) => {
+const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null,selectedOrder:string,searchText:string) => {
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState([]);
     const [isLoading,setLoading] = useState(false);
@@ -38,7 +38,8 @@ const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null,s
             params : {
               genres : selectedGenre?.id, 
               platforms : selectedPlatform?.id,
-              ordering:selectedOrder
+              ordering:selectedOrder,
+              search:searchText
            }
          }
       )
@@ -54,8 +55,8 @@ const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null,s
 
         //cleanup function
         return () => controller.abort();
-        //here we need to add the dependencies because useEffect should work whenever we select some genre or platform
-    },[selectedGenre?.id,selectedPlatform?.id,selectedOrder]);
+        //here we need to add the dependencies because useEffect should work whenever we select some genre or platform or order or search
+    },[selectedGenre?.id,selectedPlatform?.id,selectedOrder,searchText]);
 
     //return object with 2 properties games and error
     return {games,error,isLoading};
