@@ -13,16 +13,16 @@ const GameCard = ({ game }: Props) => {
     <Card borderRadius={10} overflow={"hidden"}>
       <Image src={game.background_image || noImageUrl} />
       <CardBody>
-        <Heading fontSize="2xl">{game.name}</Heading>
         {/* It is Difficult see how we have pass the prop
         a simpler way extract the code written in PlatformIconList here 
         itself */}
-        <HStack justifyContent="space - between">
+        <HStack justifyContent="space - between" marginBottom={3}>
           <PlatformIconList
             platforms={game.parent_platforms.map((p) => p.platform)}
           />
           <CriticScore score={game.metacritic} />
         </HStack>
+        <Heading fontSize="2xl">{game.name}</Heading>
       </CardBody>
     </Card>
   );
