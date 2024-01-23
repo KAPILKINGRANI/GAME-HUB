@@ -27,7 +27,7 @@ const GameDetailPage = () => {
     <>
       <Heading>{game.name}</Heading>
       <ExpandableText>{game.description_raw}</ExpandableText>
-      {/* <GameTrailer gameId={game.id}></GameTrailer> */}
+      <GameTrailer gameId={game.id}></GameTrailer>
       <GameScreenshots gameId={game.id}></GameScreenshots>
     </>
   );

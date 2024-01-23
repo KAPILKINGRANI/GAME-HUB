@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
-interface Trailer {
+export interface Trailer {
     id:number,
     name:string,
     preview:string,
@@ -19,21 +19,16 @@ const useTrailer = (selectedId:number) => {
     const [error, setError] = useState(null);
     const [isLoading,setLoading] = useState(false);
     useEffect(() => {
-        console.log('Fetching game for slug:', selectedId);
         const controller = new AbortController();
-        // setLoading(true); 
         apiClient
         .get<FetchTrailerResponse>(`/games/${selectedId}/movies`)
         .then((res) => {
-        // console.log("hello")
-        // console.log(res.data)
+            console.log(res.data.results);
         setGameTrailer(res.data.results);
-        //  setLoading(false)
         })  
         .catch((err) => {
          if(err instanceof CanceledError) return
          setError(err.message)
-        //  setLoading(false);
        });
         console.log(gameTrailer)
         //cleanup function
