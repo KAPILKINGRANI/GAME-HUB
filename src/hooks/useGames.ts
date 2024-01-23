@@ -14,6 +14,7 @@ export interface Game {
     parent_platforms:{platform : Platform}[];
     metacritic:number;
     ordering:string;
+    slug:string;
   }
   interface FetchGamesResponse {
     count: number;
@@ -38,8 +39,8 @@ const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null,s
             params : {
               genres : selectedGenre?.id, 
               platforms : selectedPlatform?.id,
-              ordering:selectedOrder,
-              search:searchText
+              // ordering:selectedOrder,
+              // search:searchText
            }
          }
       )

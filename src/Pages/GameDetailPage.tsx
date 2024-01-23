@@ -1,7 +1,31 @@
-import React from "react";
+import { Heading, Spinner, Text } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import useGame from "../hooks/useGame";
 
 const GameDetailPage = () => {
-  return <div>GameDetailPage</div>;
+  const { slug } = useParams();
+  console.log("Slug:", slug);
+
+  const { game, isLoading, error } = useGame(slug!);
+  //by appending ! we are telling that compiler that slug can never be null
+  //if game exist then only url contain slug that means slug cannot have value null
+  console.log("Game:", game);
+  console.log("Is Loading:", isLoading);
+  console.log("Error:", error);
+
+  if (isLoading) return <Spinner />;
+  //if any error or no game exists
+  if (error || !game) {
+    console.error("Error or no game:", error);
+    return <Text>Error loading game</Text>;
+  }
+
+  return (
+    <>
+      <Heading>{game.name}</Heading>
+      <Text>{game.description_raw}</Text>
+    </>
+  );
 };
 
 export default GameDetailPage;
