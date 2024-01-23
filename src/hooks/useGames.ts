@@ -25,7 +25,7 @@ export interface Game {
   
 const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null,selectedOrder:string,searchText:string) => {
     const [games, setGames] = useState<Game[]>([]);
-    const [error, setError] = useState([]);
+    const [error, setError] = useState(null);
     const [isLoading,setLoading] = useState(false);
     useEffect(() => {
         //for cancelling the request we are using controller

@@ -4,6 +4,7 @@ import { CanceledError } from "axios";
 interface GameDetail {
     name:string
     description_raw:string
+    id:number
 }
 const useGame = (selectedId:string) => {
     const [game,setGame] =useState<GameDetail>();
