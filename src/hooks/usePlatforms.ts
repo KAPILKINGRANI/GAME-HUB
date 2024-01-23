@@ -18,7 +18,7 @@ const usePlatforms = () => {
             //for cancelling the request we are using controller
             const controller = new AbortController();
           apiClient
-            .get<PlatformResponse>("platforms/lists/parents",{signal:controller.signal})
+            .get<PlatformResponse>("platforms",{signal:controller.signal})
             .then((res) => {
               setPlatform(res.data.results)
              

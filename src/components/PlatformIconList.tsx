@@ -19,7 +19,6 @@ interface Props {
 const PlatformIconList = ({ platforms }: Props) => {
   //if u don't want icons u can also map "platform-name" as a simple text
   //here we have define index signature iconMap :{} inside the bracs
-  console.log("Platforms:", platforms);
 
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows,
