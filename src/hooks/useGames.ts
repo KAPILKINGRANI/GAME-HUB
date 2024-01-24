@@ -39,8 +39,8 @@ const useGames = (selectedGenre:Genre | null,selectedPlatform :Platform | null,s
             params : {
               genres : selectedGenre?.id, 
               platforms : selectedPlatform?.id,
-              // ordering:selectedOrder,
-              // search:searchText
+              ordering:selectedOrder,
+              search:searchText
            }
          }
       )

@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
 const Layout = () => {
-  const [searchText, setSearchText] = useState("games");
+  const [searchText, setSearchText] = useState("");
   //   useState fix
   return (
     <>
