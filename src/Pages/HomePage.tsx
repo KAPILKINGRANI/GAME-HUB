@@ -7,6 +7,7 @@ import PlatformSelector from "../components/PlatformSelector";
 import SortSelector from "../components/SortSelector";
 import { Genre } from "../hooks/useGenres";
 import { Platform } from "../hooks/usePlatforms";
+import Navbar from "../components/Navbar";
 
 //The below code previously we wrote in App.tsx but now we want to setting the routes therefore we shift the content here
 
@@ -21,9 +22,18 @@ const HomePage = () => {
   );
   const [selectedOrder, setSelectedOrder] = useState("");
   const [searchText, setSearchText] = useState("");
+  const handleSearch = (searchText: string) => {
+    setSearchText(searchText);
+    setSelectedOrder("popularity");
+    setSelectedPlatform(null); //to make sure search for all platforms
+    setSelectedGenre(null); //to make sure filter for all genre
+  };
   return (
     <>
       {/* here we have done changes in template areas with respect to nav */}
+      <GridItem area="nav">
+        <Navbar onSearch={(searchText: string) => handleSearch(searchText)} />
+      </GridItem>
       <Grid
         templateAreas={{
           base: `"main"`, //this is for smaller devices

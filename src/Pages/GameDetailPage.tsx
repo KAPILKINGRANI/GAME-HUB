@@ -1,11 +1,25 @@
-import { Heading, Spinner, Text } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import {
+  Box,
+  Button,
+  GridItem,
+  Heading,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
 import useGame from "../hooks/useGame";
 import ExpandableText from "../components/ExpandableText";
 import GameTrailer from "../components/GameTrailer";
 import GameScreenshots from "../components/GameScreenshots";
-
+import Navbar from "../components/Navbar";
+interface Props {
+  onSearch: (searchText: string) => void;
+}
 const GameDetailPage = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/");
+  };
   const { slug } = useParams();
   console.log("Slug:", slug);
 
@@ -25,10 +39,20 @@ const GameDetailPage = () => {
 
   return (
     <>
-      <Heading>{game.name}</Heading>
-      <ExpandableText>{game.description_raw}</ExpandableText>
-      <GameTrailer gameId={game.id}></GameTrailer>
-      <GameScreenshots gameId={game.id}></GameScreenshots>
+      <Box padding={5}>
+        <Heading>{game.name}</Heading>
+        <ExpandableText>{game.description_raw}</ExpandableText>
+        <GameTrailer gameId={game.id}></GameTrailer>
+        <Box padding={5}>
+          <Heading>Screenshots</Heading>
+        </Box>
+        <GameScreenshots gameId={game.id}></GameScreenshots>
+        <Box margin={5}>
+          <Button colorScheme="yellow" size="lg" onClick={handleClick}>
+            View other games
+          </Button>
+        </Box>
+      </Box>
     </>
   );
 };
